@@ -1,7 +1,3 @@
-# Meetup Github Repo: https://github.com/mixh/CS546-Final-Project
-## Group 8 Project for CS 546 Web Programming
-### Group Members : Mihir Jain, Sarthak Vaidya, Yash Nitesh Baleri, Shiva Mandadapu
-
 
 HOW TO RUN 
 - Run ```npm install```   will install all the required node dependencies 
