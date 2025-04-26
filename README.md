@@ -1,30 +1,134 @@
+# Friends Connect
 
-HOW TO RUN 
-- Run ```npm install```   will install all the required node dependencies 
-- Run ```npm run seed```  will populate the database with users which you could use to match and message going ahead
-- Run ```npm start```     will run the application the website would be live on  http://localhost:3000
+New to a gym and looking for workout buddies? Or always wanted to hike Mount Rainier but don’t have anyone to go with? Friends Connect helps you meet like-minded people from your gym, university, or workplace so you can plan activities together.
 
-## How to navigate the application
-- once live the website would show the features and purpose on the homepage, it would also have links for login and registration
-- you could login using the prior seeded database file it has the emails and passwords for login (you could use email = "alicesmith@example.com" and Password="Password1234$") 
-- if you want to register a new user you could through "/register" or register buttons available on homepage and login pages
-  - keep in mind our application only shows matches which have some commanility like university, place of work, a place you want to visit, gym/class if a new user is registered and the db has no other users that have these commanilities we wont be able to show any potential matches
-  - after successful registration you would be redirected to login page to enter the website
- 
- 
- ### Post successful Login
- - You would be able to see the landing page which would have card links for Find Matches, Your Matches, Your Profile, Messages. In addition the navbar would have the links to logout and delete account 
- 
- The Find Matches Card or the navbar potential matches will show you the users who have some common locations as you and you would be able to 
- - you can view the next user only after liking or disliking the user shown 
- - view their profile, like or dislike them
- - you could also set the toggle button in this page to show you the users within 5km radius of your location instead of all the users that share the commonalities
- 
- Profile will show you, your profile that is generated from the info entered at registration
-- also you are given the button to edit your profile, only the info that is changed will be updated in website unchanged info will be same as the prior entered
-  - after successfully editing you would be redirected to the profile page where your new profile would be visible 
-- you are also given the option to pause/unpause your profile. You wont be able to view any potential matches if your profile is paused
+A web application designed to help you discover and connect with people who share your favorite venues—whether gyms, universities, or other spots you frequent. By combining content-based interest matching (e.g., shared interests like university or workplace) with geospatial proximity, Friends Connect makes it effortless to find new friends or plan group meetups. Plus, a fast chat feature lets you coordinate in real time.
 
-Messages will give you the option to chat with a matched user. once unmatched by either you would no longer be able to message
+---
 
-Matches will show you all your matches and the option to message your matched user, you could search for the your matched users over here and you could also unmatch the user over here
+## Technologies
+
+- **Backend**: Node.js, Express.js, REST  
+- **Database**: MongoDB  
+- **Frontend**: HTML, CSS  
+- **Realtime**: WebSocket  
+- **Mapping**: Google Maps API (deprecated)  
+
+---
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14+)
+- [MongoDB](https://www.mongodb.com/) (local or Atlas)
+
+---
+
+## Database Indexes
+
+To ensure fast and accurate location-based matching, create a geospatial index on your users collection:
+
+```js
+// In the Mongo shell or a migration script:
+db.users.createIndex({ location: "2dsphere" });
+```
+
+This index enables efficient 2dsphere queries for finding nearby users.
+
+---
+
+## Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repo-url>
+   cd friends-connect
+   ```
+
+2. **Configure environment variables**  
+   Create a `.env` file in the project root with the following keys:
+   ```dotenv
+   PORT=3000
+   MONGODB_URI=<your-mongodb-connection-string>
+   JWT_SECRET=<your-jwt-secret>
+   ```
+   Ensure you never commit `.env` to version control.
+
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Seed the database**  
+   Populates `users` collection with sample accounts:
+   ```bash
+   npm run seed
+   ```
+   > **Test credentials**  
+   > Email: `alicesmith@example.com`  
+   > Password: `Password1234$`
+
+5. **Start the server**  
+   ```bash
+   npm start
+   ```
+
+The app will be live at:  `http://localhost:3000`
+
+---
+
+## Deprecated Features
+
+- **Google Maps API integration** and **online chat server** were deprecated in **v2.3 (April 2025)** due to rising external service costs.  
+- **Alternative mapping**: continue using MongoDB’s built-in geospatial queries (local or Atlas); consider community-driven map libraries like **Mapbox GL JS** for rich client-side maps.  
+- **Local chat** remains fully supported; migrate away from the legacy online chat server by relying on the existing WebSocket layer.
+
+---
+
+## Usage
+
+### Landing & Auth
+
+- **Homepage** provides an overview of features and purpose, plus links to **Login** and **Register**.  
+- **Login** using seeded credentials or your own account.  
+- **Register** via `/register` or the on-page button.  
+  - Matches only appear if other users share at least one common criterion (university, workplace, gym/class).  
+  - After registering, you’ll be redirected to **Login**.
+
+### Dashboard
+
+After logging in, you’ll see four main cards (and nav links):  
+> **Find Matches | Your Matches | Your Profile | Messages**  
+> plus **Logout** and **Delete Account** in the navbar.
+
+#### 1. Find Matches  
+- Browse one user at a time; you must **Like** or **Dislike** to view the next profile.  
+- Toggle to limit results to users within **5 km** of your location.  
+- View any user’s full profile before making a decision.
+
+#### 2. Your Matches  
+- Lists all users you’ve mutually liked.  
+- Search matches and **Unmatch** if desired.  
+- From here, you can also **Message** any match (local chat only).
+
+#### 3. Messages  
+- Real-time local chat with any active match.  
+- Once unmatched by either party, messaging is disabled.
+
+#### 4. Your Profile  
+- Displays your signup information.  
+- **Edit Profile**: update fields as needed; unchanged fields remain the same.  
+- **Pause/Unpause**: when paused, you won’t appear in **Find Matches**.
+
+---
+
+## Notes
+
+- **Match criteria**: shared university, workplace, desired visit location, or gym/class.  
+- If no one shares your criteria, **Find Matches** will temporarily show no results.  
+- Deleting your account removes all your data permanently.
+
+---
+
+## License
+
+MIT License – see [LICENSE](./LICENSE) for details.
