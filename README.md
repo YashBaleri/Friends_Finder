@@ -78,7 +78,7 @@ The app will be live at:  `http://localhost:3000`
 
 ## Deprecated Features
 
-- **Google Maps API integration** and **online chat server** were deprecated in **v2.3 (April 2025)** due to rising external service costs.  
+- **Google Maps API integration** and **online chat server** were deprecated in **v2.3 (April 2024)**.  
 - **Alternative mapping**: continue using MongoDB’s built-in geospatial queries (local or Atlas); consider community-driven map libraries like **Mapbox GL JS** for rich client-side maps.  
 - **Local chat** remains fully supported; migrate away from the legacy online chat server by relying on the existing WebSocket layer.
 
